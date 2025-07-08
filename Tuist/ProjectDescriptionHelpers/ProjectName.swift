@@ -7,6 +7,7 @@ public enum ProjectName: String, CaseIterable {
     case Features
     case Platform
     case UI
+    case Benchmark
 }
 
 public extension ProjectName {
@@ -47,6 +48,11 @@ public extension ProjectName {
             Project(
                 name: rawValue,
                 targets: UIModuleName.allCases.map(\.target)
+            )
+        case .Benchmark:
+            Project(
+                name: rawValue,
+                targets: BenchmarkModuleName.allCases.map(\.target)
             )
         }
     }

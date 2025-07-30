@@ -3,7 +3,7 @@ import Dependencies
 @testable import Task_1
 @testable import UI
 
-final class Task1Tests: XCTestCase {
+final class MoviesViewModelTests: XCTestCase {
     
     private var discoverMoviesUseCase: DiscoverMoviesUseCaseProtocolMock!
     private var errorToastCoordinator: ErrorToastCoordinatorMock!

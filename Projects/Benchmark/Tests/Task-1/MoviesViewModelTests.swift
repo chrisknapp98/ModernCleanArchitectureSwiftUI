@@ -10,7 +10,12 @@ final class Task1Tests: XCTestCase {
     
     @MainActor
     var sut: MoviesViewModel {
-        MoviesViewModel(coordinator: MoviesCoordinatorMock())
+        withDependencies {
+            $0.discoverMoviesUseCase = discoverMoviesUseCase
+            $0.errorToastCoordinator = errorToastCoordinator
+        } operation: {
+            return MoviesViewModel(coordinator: MoviesCoordinatorMock())
+        }
     }
     
     override func setUp() {
@@ -32,23 +37,16 @@ final class Task1Tests: XCTestCase {
             mockMovie(title: "Test Movie 1"),
             mockMovie(title: "Test Movie 2")
         ]
-        
         discoverMoviesUseCase.results = expectedMovies
+        let sut = sut
+    
+        // when
+        await sut.fetch()
         
-        // Inject mock use case for just this scope
-        await withDependencies {
-            $0.discoverMoviesUseCase = discoverMoviesUseCase
-        } operation: {
-            let sut = sut
-            
-            // when
-            await sut.fetch()
-            
-            // then
-            XCTAssertEqual(sut.movies.count, 2)
-            XCTAssertEqual(sut.movies.map(\.title), ["Test Movie 1", "Test Movie 2"])
-            XCTAssertEqual(discoverMoviesUseCase.callCount, 1)
-        }
+        // then
+        XCTAssertEqual(sut.movies.count, 2)
+        XCTAssertEqual(sut.movies.map(\.title), ["Test Movie 1", "Test Movie 2"])
+        XCTAssertEqual(discoverMoviesUseCase.callCount, 1)
     }
     
     @MainActor
@@ -59,21 +57,15 @@ final class Task1Tests: XCTestCase {
         discoverMoviesUseCase.results = []
         discoverMoviesUseCase.totalResults = 0
         discoverMoviesUseCase.error = expectedError
+        let sut = sut
         
-        await withDependencies {
-            $0.discoverMoviesUseCase = discoverMoviesUseCase
-            $0.errorToastCoordinator = errorToastCoordinator
-        } operation: {
-            let sut = sut
-            
-            // when
-            await sut.fetch()
-            
-            // then
-            XCTAssertEqual(sut.movies.count, 0)
-            XCTAssertEqual(discoverMoviesUseCase.callCount, 1)
-            XCTAssertEqual(errorToastCoordinator.callCount, 1)
-        }
+        // when
+        await sut.fetch()
+        
+        // then
+        XCTAssertEqual(sut.movies.count, 0)
+        XCTAssertEqual(discoverMoviesUseCase.callCount, 1)
+        XCTAssertEqual(errorToastCoordinator.callCount, 1)
     }
     
 }

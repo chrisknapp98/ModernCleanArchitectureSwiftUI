@@ -1,10 +1,12 @@
 import XCTest
 import Dependencies
 @testable import Task_1
+@testable import UI
 
 final class Task1Tests: XCTestCase {
     
     private var discoverMoviesUseCase: DiscoverMoviesUseCaseProtocolMock!
+    private var errorToastCoordinator: ErrorToastCoordinatorMock!
     
     @MainActor
     var sut: MoviesViewModel {
@@ -14,10 +16,12 @@ final class Task1Tests: XCTestCase {
     override func setUp() {
         super.setUp()
         discoverMoviesUseCase = DiscoverMoviesUseCaseProtocolMock()
+        errorToastCoordinator = ErrorToastCoordinatorMock()
     }
     
     override func tearDown() {
         discoverMoviesUseCase = nil
+        errorToastCoordinator = nil
         super.tearDown()
     }
     
@@ -47,6 +51,31 @@ final class Task1Tests: XCTestCase {
         }
     }
     
+    @MainActor
+    func test_givenError_whenFetchingMoviesToDiscover_thenShowErrorToast() async {
+        // given
+        let expectedError = NSError(domain: "TestError", code: 1, userInfo: nil)
+        
+        discoverMoviesUseCase.results = []
+        discoverMoviesUseCase.totalResults = 0
+        discoverMoviesUseCase.error = expectedError
+        
+        await withDependencies {
+            $0.discoverMoviesUseCase = discoverMoviesUseCase
+            $0.errorToastCoordinator = errorToastCoordinator
+        } operation: {
+            let sut = sut
+            
+            // when
+            await sut.fetch()
+            
+            // then
+            XCTAssertEqual(sut.movies.count, 0)
+            XCTAssertEqual(discoverMoviesUseCase.callCount, 1)
+            XCTAssertEqual(errorToastCoordinator.callCount, 1)
+        }
+    }
+    
 }
 
 class MoviesCoordinatorMock: MoviesCoordinator {
@@ -68,9 +97,13 @@ class DiscoverMoviesUseCaseProtocolMock: DiscoverMoviesUseCaseProtocol {
     var totalPages = 1
     var callCount = 0
     var totalResults = 0
+    var error: Error? = nil
 
     func fetch(request: DiscoverMoviesRequest, page: Int) async throws -> PageResult<Movie> {
         callCount += 1
+        if let error = error {
+            throw error
+        }
         return PageResult(
             page: page,
             results: results,
@@ -109,3 +142,11 @@ func mockMovie(
 }
 
 
+class ErrorToastCoordinatorMock: ErrorToastCoordinator {
+    var callCount = 0
+    
+    override func show() {
+        callCount += 1
+        super.show()
+    }
+}

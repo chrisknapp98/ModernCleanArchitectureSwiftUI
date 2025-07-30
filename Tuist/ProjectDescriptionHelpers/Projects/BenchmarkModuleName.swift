@@ -25,6 +25,19 @@ extension BenchmarkModuleName {
             }
         )
     }
+
+    var testTarget: Target {
+        .target(
+            name: "\(rawValue)Tests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "com.multifilebenchmark.\(rawValue)Tests",
+            sources: "Tests/\(rawValue)/**",
+            dependencies: [
+                .target(name: rawValue)
+            ]
+        )
+    }
 }
 
 extension TargetDependency {

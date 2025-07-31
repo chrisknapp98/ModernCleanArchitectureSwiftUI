@@ -16,19 +16,6 @@ public final class DiscoverMoviesUseCase: DiscoverMoviesUseCaseProtocol {
     }
     
     public func fetch(request: DiscoverMoviesRequest, page: Int) async throws -> PageResult<Movie> {
-        do {
-            let pageResult = try await gateway.fetch(request: request)
-            if page == 1 {
-                try? await repository.save(movies: pageResult.results, for: request)
-            }
-            return pageResult
-        } catch {
-            if error is OfflineError {
-                let movies = try await repository.movies(for: request)
-                return PageResult(page: page, results: movies, totalPages: 0, totalResults: movies.count)
-            }
-            throw error
-        }
     }
 }
 

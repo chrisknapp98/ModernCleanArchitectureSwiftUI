@@ -9,7 +9,7 @@ final class MoviesViewModelTests: XCTestCase {
     private var errorToastCoordinator: ErrorToastCoordinatorMock!
     
     @MainActor
-    var sut: MoviesViewModel {
+    private var sut: MoviesViewModel {
         withDependencies {
             $0.discoverMoviesUseCase = discoverMoviesUseCase
             $0.errorToastCoordinator = errorToastCoordinator

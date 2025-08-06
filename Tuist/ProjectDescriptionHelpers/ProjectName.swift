@@ -52,7 +52,13 @@ extension ProjectName {
         case .Benchmark:
             Project(
                 name: rawValue,
-                targets: BenchmarkModuleName.allCases.flatMap { [$0.target, $0.testTarget] }
+                targets: BenchmarkModuleName.allCases.flatMap { [$0.target, $0.testTarget] } + [
+                    BenchmarkModuleName.parentTarget,
+                    BenchmarkModuleName.parentTestTarget,
+                ],
+                schemes: [
+                    BenchmarkModuleName.scheme
+                ]
             )
         }
     }

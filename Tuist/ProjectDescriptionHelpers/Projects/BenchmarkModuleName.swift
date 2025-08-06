@@ -48,3 +48,44 @@ extension TargetDependency {
         )
     }
 }
+
+// MARK: - Project
+extension BenchmarkModuleName {
+    static var parentTarget: Target {
+        .target(
+            name: "Benchmark",
+            destinations: .iOS,
+            product: .framework,
+            bundleId: "com.multifilebenchmark.Benchmark",
+            sources: [],
+            dependencies: BenchmarkModuleName.allCases.map { .target(name: $0.rawValue) }
+        )
+    }
+
+    static var parentTestTarget: Target {
+        .target(
+            name: "BenchmarkTests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "com.multifilebenchmark.BenchmarkTests",
+            sources: "Tests/**",
+            dependencies: [
+                .target(name: "Benchmark"),
+                .external(name: "Dependencies"),
+            ]
+        )
+    }
+
+    static var scheme: Scheme {
+        .scheme(
+            name: "Benchmark",
+            shared: true,
+            buildAction: .buildAction(targets: ["Benchmark"]),
+            testAction: .testPlans(
+                ["BenchmarkTests.xctestplan"],
+                configuration: .debug
+            ),
+            runAction: .runAction(configuration: .debug)
+        )
+    }
+}

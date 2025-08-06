@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "977B38A0-79F7-4648-B380-9B8EC55BF449",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "5D8BDC46671061ABCF60FF80",
+        "name" : "Task-1Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "2E5A36A822D6765032F02E51",
+        "name" : "Task-2Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "2ADB9E4C28AAEE9BCA98B763",
+        "name" : "Task-3Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

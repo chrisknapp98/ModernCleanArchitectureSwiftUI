@@ -1,14 +1,14 @@
 import XCTest
 import Dependencies
-@testable import Task_1
+@testable import Task_3
 @testable import UI
 
+@MainActor
 final class MoviesViewModelTests: XCTestCase {
     
     private var discoverMoviesUseCase: DiscoverMoviesUseCaseProtocolMock!
     private var errorToastCoordinator: ErrorToastCoordinatorMock!
     
-    @MainActor
     private var sut: MoviesViewModel {
         withDependencies {
             $0.discoverMoviesUseCase = discoverMoviesUseCase
@@ -30,7 +30,6 @@ final class MoviesViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    @MainActor
     func test_givenPopularMovies_whenFilteringMoviesToDiscover_thenFindMovies() async {
         // given
         let expectedMovies = [
@@ -56,7 +55,6 @@ final class MoviesViewModelTests: XCTestCase {
         XCTAssertEqual(discoverMoviesUseCase.callCount, 1)
     }
     
-    @MainActor
     func test_givenTopRatedMovies_whenFilteringMoviesToDiscover_thenFindMovies() async {
         // given
         let expectedMovies = [
@@ -82,7 +80,6 @@ final class MoviesViewModelTests: XCTestCase {
         XCTAssertEqual(discoverMoviesUseCase.callCount, 1)
     }
     
-    @MainActor
     func test_givenError_whenFetchingMoviesToDiscover_thenShowErrorToast() async {
         // given
         let expectedError = NSError(domain: "TestError", code: 1, userInfo: nil)

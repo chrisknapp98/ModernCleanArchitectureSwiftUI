@@ -2,12 +2,12 @@ import XCTest
 import Dependencies
 @testable import Task_2
 
+@MainActor
 final class DiscoverMoviesUseCaseTests: XCTestCase {
     
     private var gatewayMock: DiscoverMoviesGatewayMock!
     private var repositoryMock: DiscoverMoviesRepositoryMock!
     
-    @MainActor
     private var sut: DiscoverMoviesUseCaseProtocol {
         DiscoverMoviesUseCase(
             gateway: gatewayMock,
@@ -27,7 +27,6 @@ final class DiscoverMoviesUseCaseTests: XCTestCase {
         super.tearDown()
     }
     
-    @MainActor
     func test_givenMoviesForPageOne_whenFetching_thenReturnPageResultAndSave() async throws {
         // given
         let expectedMovies = [
@@ -48,7 +47,6 @@ final class DiscoverMoviesUseCaseTests: XCTestCase {
         XCTAssertEqual(repositoryMock.saveCallCount, 1)
     }
     
-    @MainActor
     func test_givenMoviesForAnyPageNotOne_whenFetching_thenReturnPageResultWithoutSaving() async throws {
         // given
         let expectedMovies = [
@@ -69,7 +67,6 @@ final class DiscoverMoviesUseCaseTests: XCTestCase {
         XCTAssertEqual(repositoryMock.saveCallCount, 0)
     }
     
-    @MainActor
     func test_givenError_whenFetching_thenThrowError() async throws {
         // given
         let expectedError = NSError(domain: "TestError", code: 1, userInfo: nil)
@@ -87,7 +84,6 @@ final class DiscoverMoviesUseCaseTests: XCTestCase {
         XCTAssertEqual(gatewayMock.callCount, 1)
     }
     
-    @MainActor
     func test_givenOfflineError_whenFetching_thenReturnCachedMovies() async throws {
         // given
         let expectedMovies = [

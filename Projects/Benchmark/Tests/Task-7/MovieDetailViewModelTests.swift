@@ -74,12 +74,13 @@ class MovieDetailViewModelTests: XCTestCase {
         movieWatchlistUseCaseMock.containsResult = false
         movieWatchlistUseCaseMock.addError = ErrorMock.mockError
         let sut = sut
+        let previousInWatchlistValue = sut.props.isInWatchlist
         
         // when
         sut.addToWatchlist()
         
         // then
-        XCTAssertFalse(sut.props.isInWatchlist)
+        XCTAssertEqual(sut.props.isInWatchlist, previousInWatchlistValue)
         XCTAssertEqual(movieWatchlistUseCaseMock.containsCallCount, 1)
         XCTAssertEqual(movieWatchlistUseCaseMock.addCallCount, 1)
         XCTAssertEqual(movieWatchlistUseCaseMock.removeCallCount, 0)
@@ -92,12 +93,13 @@ class MovieDetailViewModelTests: XCTestCase {
         movieWatchlistUseCaseMock.containsResult = true
         movieWatchlistUseCaseMock.removeError = ErrorMock.mockError
         let sut = sut
+        let previousInWatchlistValue = sut.props.isInWatchlist
         
         // when
         sut.addToWatchlist()
         
         // then
-        XCTAssertFalse(sut.props.isInWatchlist)
+        XCTAssertEqual(sut.props.isInWatchlist, previousInWatchlistValue)
         XCTAssertEqual(movieWatchlistUseCaseMock.containsCallCount, 1)
         XCTAssertEqual(movieWatchlistUseCaseMock.addCallCount, 0)
         XCTAssertEqual(movieWatchlistUseCaseMock.removeCallCount, 1)

@@ -1,7 +1,7 @@
 {
     "task_id": 3,
     "entrypoint": {
-        "filename": "Projects/Benchmark/Sources/Task-1/Movies/MoviesList/MoviesViewModel.swift",
+        "filename": "Projects/Benchmark/Sources/Task-3/Movies/MoviesList/MoviesViewModel.swift",
         "cursor": {
             "line": 36,
             "character": 49

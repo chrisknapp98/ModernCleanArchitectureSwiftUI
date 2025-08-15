@@ -1,0 +1,12 @@
+{
+    "task_id": 13,
+    "entrypoint": {
+        "filename": "Projects/Benchmark/Sources/Task-13/MoviesAPI/Geteways/MovieCreditsGateway.swift",
+        "cursor": {
+            "line": 12,
+            "character": 71
+        }
+    },
+    "files": [
+    ]
+}

@@ -11,6 +11,11 @@ enum BenchmarkModuleName: String, CaseIterable {
     case Task8 = "Task-8"
     case Task9 = "Task-9"
     case Task10 = "Task-10"
+    case Task11 = "Task-11"
+    case Task12 = "Task-12"
+    case Task13 = "Task-13"
+    case Task14 = "Task-14"
+    case Task15 = "Task-15"
 }
 
 extension BenchmarkModuleName {

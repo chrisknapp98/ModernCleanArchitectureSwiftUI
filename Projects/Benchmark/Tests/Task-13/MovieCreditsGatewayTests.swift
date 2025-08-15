@@ -1,8 +1,8 @@
 import XCTest
-@testable import Task_12
+@testable import Task_13
 @testable import MoviesDomain
 
-final class DiscoverMoviesGatewayTests: XCTestCase {
+final class MovieCreditsGatewayTests: XCTestCase {
     
     private var dataFetchingMock: DataFetchingMock!
 
@@ -16,124 +16,27 @@ final class DiscoverMoviesGatewayTests: XCTestCase {
         super.tearDown()
     }
     
-    private var sut: Task_12.DiscoverMoviesGateway {
-        DiscoverMoviesGateway(client: dataFetchingMock)
+    private var sut: Task_13.MovieCreditsGateway {
+        MovieCreditsGateway(client: dataFetchingMock)
     }
     
     func test_givenValidData_whenFetchingMovies_thenReturnsData() async throws {
         // given
-        let movieName = "Test Movie"
-        let movie = mockMovie(title: movieName)
-        let page = mockPageResult(results: [movie], totalPages: 1, totalResults: 1)
+        let castId = 777
+        let cast = mockMovieCast(id: castId)
 
-        let encoder = makeMoviesEncoder()
-        let jsonData = try encoder.encode(page)
+        let encoder = JSONEncoder()
+        let jsonData = try encoder.encode(cast)
         dataFetchingMock.data = jsonData
 
         let sut = sut
 
         // when
-        let result = try await sut.fetch(request: .popular)
+        let fetchedCast = try await sut.fetchCast(movieID: 0)
 
         // then
-        XCTAssertEqual(result.results.count, 1)
-        XCTAssertEqual(result.results.first?.title, movieName)
+        XCTAssertEqual(fetchedCast.id, castId)
         XCTAssertEqual(dataFetchingMock.callCount, 1)
-    }
-    
-    func test_givenNotConnectedToInternetNetworkError_whenFetchingMovies_thenThrowsError() async throws {
-        // given
-        let thrownError = NetworkError.notConnectedToInternet
-        dataFetchingMock.error = thrownError
-
-        let sut = sut
-
-        // when
-        do {
-            _ = try await sut.fetch(request: .popular)
-            XCTFail("Expected to throw an error, but did not.")
-        } catch is OfflineError {
-            // then
-            XCTAssertTrue(true)
-            XCTAssertEqual(dataFetchingMock.callCount, 1)
-        } catch {
-            XCTFail("Expected OfflineError, but got \(error).")
-        }
-    }
-    
-    func test_givenCancelledNetworkError_whenFetchingMovies_thenThrowsError() async throws {
-        // given
-        let thrownError = NetworkError.cancelled
-        dataFetchingMock.error = thrownError
-
-        let sut = sut
-
-        // when
-        do {
-            _ = try await sut.fetch(request: .popular)
-            XCTFail("Expected to throw an error, but did not.")
-        } catch let error as NetworkError {
-            // then
-            switch error {
-            case .cancelled:
-                XCTAssertTrue(true)
-                XCTAssertEqual(dataFetchingMock.callCount, 1)
-            default:
-                XCTFail("Expected NetworkError.cancelled, but got \(error).")
-            }
-        } catch {
-            XCTFail("Expected OfflineError, but got \(error).")
-        }
-    }
-    
-    func test_givenInvalidResponseNetworkError_whenFetchingMovies_thenThrowsError() async throws {
-        // given
-        let thrownError = NetworkError.invalidResponse
-        dataFetchingMock.error = thrownError
-
-        let sut = sut
-
-        // when
-        do {
-            _ = try await sut.fetch(request: .popular)
-            XCTFail("Expected to throw an error, but did not.")
-        } catch let error as NetworkError {
-            // then
-            switch error {
-            case .invalidResponse:
-                XCTAssertTrue(true)
-                XCTAssertEqual(dataFetchingMock.callCount, 1)
-            default:
-                XCTFail("Expected NetworkError.cancelled, but got \(error).")
-            }
-        } catch {
-            XCTFail("Expected OfflineError, but got \(error).")
-        }
-    }
-    
-    func test_givenAnyNetworkError_whenFetchingMovies_thenThrowsError() async throws {
-        // given
-        let thrownError = NetworkError.networkError(ErrorMock.mockError)
-        dataFetchingMock.error = thrownError
-
-        let sut = sut
-
-        // when
-        do {
-            _ = try await sut.fetch(request: .popular)
-            XCTFail("Expected to throw an error, but did not.")
-        } catch let error as NetworkError {
-            // then
-            switch error {
-            case .networkError(_):
-                XCTAssertTrue(true)
-                XCTAssertEqual(dataFetchingMock.callCount, 1)
-            default:
-                XCTFail("Expected NetworkError.cancelled, but got \(error).")
-            }
-        } catch {
-            XCTFail("Expected OfflineError, but got \(error).")
-        }
     }
     
     func test_givenAnyError_whenFetchingMovies_thenRethrowsError() async throws {
@@ -145,19 +48,12 @@ final class DiscoverMoviesGatewayTests: XCTestCase {
 
         // when
         do {
-            _ = try await sut.fetch(request: .popular)
+            _ = try await sut.fetchCast(movieID: 0)
             XCTFail("Expected to throw an error, but did not.")
-        } catch let error as ErrorMock {
-            // then
-            switch error {
-            case .mockError:
-                XCTAssertTrue(true)
-                XCTAssertEqual(dataFetchingMock.callCount, 1)
-            default:
-                XCTFail("Expected NetworkError.cancelled, but got \(error).")
-            }
         } catch {
-            XCTFail("Expected OfflineError, but got \(error).")
+            // then
+            XCTAssertTrue(true)
+            XCTAssertEqual(dataFetchingMock.callCount, 1)
         }
     }
 
@@ -185,70 +81,42 @@ enum ErrorMock: Error {
     case mockError
 }
 
-func mockResource(
-    path: String = "/posts",
-    method: HTTPMethod = .GET,
-    query: [String: String] = [:]
-) -> Resource {
-    Resource(
-        path: path,
-        method: method,
-        query: query
-    )
-}
-
-func mockPageResult<T: Codable>(
-    page: Int = 1,
-    results: [T] = [T](),
-    totalPages: Int = 1,
-    totalResults: Int = 0
-) -> PageResult<T> {
-    PageResult(
-        page: page,
-        results: results,
-        totalPages: totalPages,
-        totalResults: totalResults
-    )
-}
-
-func mockMovie(
-    adult: Bool = false,
-    backdropPath: String? = "/mockBackdrop.jpg",
-    id: MovieID = MovieID(rawValue: 1),
-    overview: String = "This is a mock movie for testing purposes.",
-    popularity: Double = 10.0,
-    posterPath: String? = "/mockPoster.jpg",
-    releaseDate: Date? = Date(),
-    title: String = "Mock Movie",
-    video: Bool = false,
-    voteAverage: Double = 8.5,
-    voteCount: Int = 100
-) -> Movie {
-    Movie(
-        adult: adult,
-        backdropPath: backdropPath,
+func mockMovieCast(
+    id: Int = 0,
+    cast: [Person] = [mockPerson()],
+    crew: [Person] = [mockPerson()]
+) -> MovieCast {
+    MovieCast(
         id: id,
-        overview: overview,
-        popularity: popularity,
-        posterPath: posterPath,
-        releaseDate: releaseDate,
-        title: title,
-        video: video,
-        voteAverage: voteAverage,
-        voteCount: voteCount
+        cast: cast,
+        crew: crew
     )
 }
 
-private func makeMoviesEncoder() -> JSONEncoder {
-    let df = DateFormatter()
-    df.calendar = Calendar(identifier: .gregorian)
-    df.locale = Locale(identifier: "en_US_POSIX")
-    df.timeZone = TimeZone(secondsFromGMT: 0)
-    df.dateFormat = "yyyy-MM-dd"
-
-    let enc = JSONEncoder()
-    enc.keyEncodingStrategy = .convertToSnakeCase
-    enc.userInfo[.dateFormatter] = df
-    enc.dateEncodingStrategy = .formatted(df)
-    return enc
+func mockPerson(
+    id: PersonID = 1,
+    name: String = "Mock Person",
+    knownForDepartment: String? = nil,
+    originalName: String? = nil,
+    popularity: Double? = nil,
+    profilePath: String? = nil,
+    castID: Int? = nil,
+    character: String? = nil,
+    creditID: String? = nil,
+    department: String? = nil,
+    job: String? = nil
+) -> Person {
+    Person(
+        id: id,
+        name: name,
+        knownForDepartment: knownForDepartment,
+        originalName: originalName,
+        popularity: popularity,
+        profilePath: profilePath,
+        castID: castID,
+        character: character,
+        creditID: creditID,
+        department: department,
+        job: job
+    )
 }

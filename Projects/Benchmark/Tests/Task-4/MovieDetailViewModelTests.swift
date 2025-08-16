@@ -346,7 +346,7 @@ class MovieDetailUseCaseMock: MovieDetailUseCaseProtocol {
     var movieDetail: MovieDetail?
     var error: Error?
     
-    func fetchDetail(for movieID: Task_4.MovieID) async throws -> Task_4.MovieDetail {
+    func fetchDetail(for movieID: MovieID) async throws -> MovieDetail {
         callCount += 1
         if let error {
             throw error
@@ -368,7 +368,7 @@ class MovieCreditsUseCaseMock: MovieCreditsUseCase {
     var movieCast: MovieCast?
     var error: Error?
     
-    func fetchCast(movieID: Task_4.MovieID) async throws -> Task_4.MovieCast {
+    func fetchCast(movieID: MovieID) async throws -> MovieCast {
         callCount += 1
         if let error {
             throw error
@@ -388,7 +388,7 @@ class MovieRecomendationUseCaseMock: MovieRecomendationUseCase {
     var similarError: Error?
     var recommendedError: Error?
     
-    func fetchSimilar(movieID: Task_4.MovieID) async throws -> [Task_4.Movie] {
+    func fetchSimilar(movieID: MovieID) async throws -> [Movie] {
         similarCallCount += 1
         if let similarError {
             throw similarError
@@ -396,7 +396,7 @@ class MovieRecomendationUseCaseMock: MovieRecomendationUseCase {
         return similarMovies
     }
     
-    func fetchRecomended(movieID: Task_4.MovieID) async throws -> [Task_4.Movie] {
+    func fetchRecomended(movieID: MovieID) async throws -> [Movie] {
         recommendedCallCount += 1
         if let recommendedError {
             throw recommendedError

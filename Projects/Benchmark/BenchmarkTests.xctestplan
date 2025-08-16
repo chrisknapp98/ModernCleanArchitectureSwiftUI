@@ -15,78 +15,8 @@
     {
       "target" : {
         "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "5EC7607AF782D3EB149A7DB3",
-        "name" : "Task-8Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
         "identifier" : "5D8BDC46671061ABCF60FF80",
         "name" : "Task-1Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "0B63B9FA9959724783006715",
-        "name" : "Task-13Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "610E711D557B7CA862DD4FCF",
-        "name" : "Task-5Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "25B75C565209A5CAAB83C9F4",
-        "name" : "Task-7Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "F04D7621C83828AE7B3F602A",
-        "name" : "Task-12Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "2ADB9E4C28AAEE9BCA98B763",
-        "name" : "Task-3Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "71188BD755BF0AE7005253A1",
-        "name" : "Task-11Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "7DC2795B0FD3286977B7DDC7",
-        "name" : "Task-10Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "8BB0546B9E20A0941858964F",
-        "name" : "Task-6Tests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "B0AF119DABA79552097E0E3A",
-        "name" : "Task-15Tests"
       }
     },
     {
@@ -99,8 +29,8 @@
     {
       "target" : {
         "containerPath" : "container:Benchmark.xcodeproj",
-        "identifier" : "2DD1D849C53684CC1FCB97F5",
-        "name" : "Task-9Tests"
+        "identifier" : "2ADB9E4C28AAEE9BCA98B763",
+        "name" : "Task-3Tests"
       }
     },
     {
@@ -113,8 +43,78 @@
     {
       "target" : {
         "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "610E711D557B7CA862DD4FCF",
+        "name" : "Task-5Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "8BB0546B9E20A0941858964F",
+        "name" : "Task-6Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "25B75C565209A5CAAB83C9F4",
+        "name" : "Task-7Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "5EC7607AF782D3EB149A7DB3",
+        "name" : "Task-8Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "2DD1D849C53684CC1FCB97F5",
+        "name" : "Task-9Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "7DC2795B0FD3286977B7DDC7",
+        "name" : "Task-10Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "71188BD755BF0AE7005253A1",
+        "name" : "Task-11Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "F04D7621C83828AE7B3F602A",
+        "name" : "Task-12Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "0B63B9FA9959724783006715",
+        "name" : "Task-13Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
         "identifier" : "8ECEB2B5A63C84A9A2570B45",
         "name" : "Task-14Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Benchmark.xcodeproj",
+        "identifier" : "B0AF119DABA79552097E0E3A",
+        "name" : "Task-15Tests"
       }
     }
   ],

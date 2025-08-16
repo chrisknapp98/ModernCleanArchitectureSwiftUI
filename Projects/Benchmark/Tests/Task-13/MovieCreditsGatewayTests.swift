@@ -1,5 +1,6 @@
 import XCTest
 @testable import Task_13
+@testable import HTTPClient
 @testable import MoviesDomain
 
 final class MovieCreditsGatewayTests: XCTestCase {

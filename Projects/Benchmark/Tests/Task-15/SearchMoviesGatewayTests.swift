@@ -1,5 +1,6 @@
 import XCTest
 @testable import Task_15
+@testable import HTTPClient
 @testable import MoviesDomain
 
 final class SearchMoviesGatewayTests: XCTestCase {

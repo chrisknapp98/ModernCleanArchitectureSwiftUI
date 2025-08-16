@@ -1,6 +1,7 @@
 import XCTest
 import Dependencies
 @testable import Task_1
+@testable import MoviesDomain
 @testable import UI
 
 @MainActor

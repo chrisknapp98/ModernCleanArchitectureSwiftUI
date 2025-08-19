@@ -16,6 +16,11 @@ public final class DiscoverMoviesUseCase: DiscoverMoviesUseCaseProtocol {
     }
     
     public func fetch(request: DiscoverMoviesRequest, page: Int) async throws -> PageResult<Movie> {
+        if Task.isCancelled {
+            throw CancellationError()
+        }
+        return .init(page: page, results: [], totalPages: 0, totalResults: 0)
+        
     }
 }
 

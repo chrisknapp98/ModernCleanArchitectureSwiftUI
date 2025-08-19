@@ -116,6 +116,8 @@ public final class MovieDetailViewModel {
     }
   
     func didTapList() {
+        props.isInCustomList.toggle()
+
     }
   
     private var shouldLoad: Bool {

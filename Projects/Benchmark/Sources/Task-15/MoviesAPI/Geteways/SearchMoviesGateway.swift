@@ -14,5 +14,22 @@ public final class SearchMoviesGateway: MovieSearchUseCase {
     }
 
     public func search(query: String, page: Int) async throws -> PageResult<Movie> {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.themoviedb.org"
+        components.path = "/3/search/movie"
+        components.queryItems = [
+            URLQueryItem(name: "query", value: query),
+            URLQueryItem(name: "page", value: String(page))
+        ]
+        guard let url = components.url else {
+            throw URLError(.badURL)
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        let (data, _) = try await client.data(for: request)
+        return try decoder.decode(PageResult<Movie>.self, from: data)
+
     }
 }

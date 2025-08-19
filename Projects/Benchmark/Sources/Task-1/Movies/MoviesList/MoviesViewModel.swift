@@ -26,6 +26,16 @@ import UI
     }
     
     func fetch() async {
+        guard !movies.isEmpty || request != .nowPlaying else {
+            return
+        }
+        
+        do {
+            let page = try await useCase.fetch(request: request)
+            movies = page.results
+        } catch {
+            errorToast.show()
+        }
     }
     
     func filter(request: DiscoverMoviesRequest) {

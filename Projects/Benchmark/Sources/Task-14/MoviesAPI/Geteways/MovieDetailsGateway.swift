@@ -15,5 +15,10 @@ public final class MovieDetailsGateway: MovieDetailUseCaseProtocol {
     }
 
     public func fetchDetail(for movieID: MovieID) async throws -> MovieDetail {
+        let resource = Resource(path: "/movie/\(movieID.rawValue)", query: [:])
+        let data = try await client.fetch(resource: resource)
+        let detail = try decoder.decode(MovieDetail.self, from: data)
+
+        return detail
     }
 }

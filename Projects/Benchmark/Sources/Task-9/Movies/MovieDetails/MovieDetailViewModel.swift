@@ -116,6 +116,18 @@ public final class MovieDetailViewModel {
     }
   
     func didTapList() {
+        do {
+            if movieWatchlistUseCase.contains(movie: movie) {
+                try movieWatchlistUseCase.remove(movie: movie)
+                props.isInWatchlist = false
+            } else {
+                try movieWatchlistUseCase.add(movie: movie)
+                props.isInWatchlist = true
+            }
+            coordinator.showAddMovieToCustomList(for: movie)
+        } catch {
+            errorToast.show()
+        }
     }
   
     private var shouldLoad: Bool {

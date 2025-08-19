@@ -115,7 +115,11 @@ public final class MovieDetailViewModel {
         }
     }
   
-    func didTapList() {
+    func didTapList() {        if props.isInCustomList {
+            coordinator.showCustomList(for: movie)
+        } else {
+            coordinator.showAddToCustomList(for: movie)
+        }
     }
   
     private var shouldLoad: Bool {

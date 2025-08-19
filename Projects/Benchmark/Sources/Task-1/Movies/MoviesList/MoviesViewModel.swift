@@ -26,6 +26,16 @@ import UI
     }
     
     func fetch() async {
+        do {
+            let page = try await useCase.discoverMovies(request: request)
+            movies = page.results
+            
+            if page.totalResults == 0 {
+                errorToast.show(message: "No movies found for the selected filters.")
+            }
+        } catch {
+            errorToast.show(error: error)
+        }
     }
     
     func filter(request: DiscoverMoviesRequest) {

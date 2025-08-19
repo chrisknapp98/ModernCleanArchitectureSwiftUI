@@ -27,5 +27,10 @@ public final class PersonDetailsViewViewModel {
     
     @MainActor
     func fetch() async {
+        do {
+            props.details = try await personDetailsUseCase.fetchPersonDetails(with: person.id)
+        } catch {
+            errorToast.show()
+        }
     }
 }

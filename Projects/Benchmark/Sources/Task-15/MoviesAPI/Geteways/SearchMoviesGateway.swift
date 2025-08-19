@@ -14,5 +14,18 @@ public final class SearchMoviesGateway: MovieSearchUseCase {
     }
 
     public func search(query: String, page: Int) async throws -> PageResult<Movie> {
+        do {
+            let resource = Resource(path: "/search/movie", query: ["query": query, "page": "\(page)"])
+            let data = try await client.fetch(resource: resource)
+            let pageResult = try decoder.decode(PageResult<Movie>.self, from: data)
+            return pageResult
+        } catch let error as NetworkError {
+            if case .notConnectedToInternet = error {
+                throw OfflineError()
+            }
+            throw error
+        } catch {
+            throw error
+        }
     }
 }

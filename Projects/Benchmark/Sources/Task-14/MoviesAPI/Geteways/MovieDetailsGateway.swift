@@ -15,5 +15,18 @@ public final class MovieDetailsGateway: MovieDetailUseCaseProtocol {
     }
 
     public func fetchDetail(for movieID: MovieID) async throws -> MovieDetail {
+        let resource = Resource(path: "/movie/\(movieID)")
+        do {
+            let data = try await client.fetch(resource: resource)
+            let movieDetail = try decoder.decode(MovieDetail.self, from: data)
+            return movieDetail
+        } catch let error as NetworkError {
+            if case .notConnectedToInternet = error {
+                throw OfflineError()
+            }
+            throw error
+        } catch {
+            throw error
+        }
     }
 }

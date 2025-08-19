@@ -116,6 +116,8 @@ public final class MovieDetailViewModel {
     }
   
     func didTapList() {
+        coordinator.showAddMovieToCustomList(for: movie)
+
     }
   
     private var shouldLoad: Bool {

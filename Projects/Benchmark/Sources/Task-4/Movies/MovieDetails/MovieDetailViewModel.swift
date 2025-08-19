@@ -54,6 +54,11 @@ public final class MovieDetailViewModel {
     }
 
     func fetchDetails() async {
+        props.isLoading = true
+        defer { props.isLoading = false }
+        props.isInWatchlist = movieWatchlistUseCase.contains(movie: movie)
+        props.isInSeenlist = movieSeenlistUseCase.contains(movie: movie)
+
     }
     
     func didTap(movie: Movie) {

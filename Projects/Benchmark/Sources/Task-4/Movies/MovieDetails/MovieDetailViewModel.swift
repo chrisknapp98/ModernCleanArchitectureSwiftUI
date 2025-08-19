@@ -54,6 +54,13 @@ public final class MovieDetailViewModel {
     }
 
     func fetchDetails() async {
+        do {
+            let details = try await movieDetailsUseCase.fetchDetail(for: movie.id)
+            props.details = details
+            props.isLoading = false
+        } catch {
+            errorToast.show()
+        }
     }
     
     func didTap(movie: Movie) {

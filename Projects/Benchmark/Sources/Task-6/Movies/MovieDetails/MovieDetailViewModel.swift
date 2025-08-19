@@ -84,6 +84,8 @@ public final class MovieDetailViewModel {
     }
     
     func didTap(person: Person) {
+        coordinator.showPersonDetail(for: person)
+
     }
   
     func addToWatchlist() {

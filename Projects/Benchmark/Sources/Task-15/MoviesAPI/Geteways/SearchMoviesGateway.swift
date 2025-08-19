@@ -13,6 +13,11 @@ public final class SearchMoviesGateway: MovieSearchUseCase {
         decoder.userInfo[.dateFormatter] = dateDormatter
     }
 
-    public func search(query: String, page: Int) async throws -> PageResult<Movie> {
+public func search(query: String, page: Int) async throws -> PageResult<Movie> {
+        let endpoint = "/search/movie?query=\(query)&page=\(page)"
+        let data = try await client.fetchData(from: endpoint)
+        let moviesPage = try decoder.decode(PageResult<Movie>.self, from: data)
+        return moviesPage
+
     }
 }

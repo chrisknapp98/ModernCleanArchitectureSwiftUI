@@ -26,6 +26,17 @@ import UI
     }
     
     func fetch() async {
+        guard !request.isLoading else { return }
+        request.isLoading = true
+        
+        do {
+            let response = try await useCase.fetch(request: request)
+            movies = response.movies
+            request.isLoading = false
+        } catch {
+            request.isLoading = false
+            errorToast.show(error: error)
+        }
     }
     
     func filter(request: DiscoverMoviesRequest) {

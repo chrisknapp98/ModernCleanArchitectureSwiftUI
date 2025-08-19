@@ -11,5 +11,18 @@ public final class MovieCreditsGateway: MovieCreditsUseCase {
     }
     
     public func fetchCast(movieID: MovieID) async throws -> MovieCast {
+        do {
+            let resource = Resource(path: "/movie/\(movieID.rawValue)/credits")
+            let data = try await client.fetch(resource: resource)
+            let cast = try decoder.decode(MovieCast.self, from: data)
+            return cast
+        } catch let error as NetworkError {
+            if case .notConnectedToInternet = error {
+                throw OfflineError()
+            }
+            throw error
+        } catch {
+            throw error
+        }
     }
 }

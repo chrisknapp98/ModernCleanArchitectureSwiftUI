@@ -116,6 +116,8 @@ public final class MovieDetailViewModel {
     }
   
     func didTapList() {
+        // Handle list tap action
+        print("List tapped")
     }
   
     private var shouldLoad: Bool {

@@ -15,5 +15,9 @@ public final class MovieDetailsGateway: MovieDetailUseCaseProtocol {
     }
 
     public func fetchDetail(for movieID: MovieID) async throws -> MovieDetail {
+        let url = URL(string: "https://api.example.com/movies/")!.appendingPathComponent(movieID.id)
+        let (data, _) = try await client.fetchData(from: url)
+        let movieDetail = try decoder.decode(MovieDetail.self, from: data)
+        return movieDetail
     }
 }

@@ -35,6 +35,7 @@ import UI
     }
     
     func filter(request: DiscoverMoviesRequest) {
+        // Implement filtering logic here
     }
     
     func didSelect(movie: Movie) {

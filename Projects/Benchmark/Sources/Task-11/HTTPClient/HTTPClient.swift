@@ -20,6 +20,12 @@ public final class HTTPClient: DataFetching {
     }
     
     public func fetch(resource: Resource) async throws -> Data {
+        let request = self.request(for: resource)
+        let (data, response) = try await session.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+            throw NetworkError.invalidResponse
+        }
+        return data
     }
     
     private func request(for resource: Resource) -> URLRequest {

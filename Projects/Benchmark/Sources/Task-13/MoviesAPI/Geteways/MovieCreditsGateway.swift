@@ -11,5 +11,8 @@ public final class MovieCreditsGateway: MovieCreditsUseCase {
     }
     
     public func fetchCast(movieID: MovieID) async throws -> MovieCast {
+        let url = URL(string: "https://api.example.com/movies/")!.appendingPathComponent(String(movieID))/credits
+        let data = try await client.fetchData(from: url)
+        return try decoder.decode(MovieCast.self, from: data)
     }
 }

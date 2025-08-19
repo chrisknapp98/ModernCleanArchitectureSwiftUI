@@ -16,6 +16,8 @@ public final class DiscoverMoviesUseCase: DiscoverMoviesUseCaseProtocol {
     }
     
     public func fetch(request: DiscoverMoviesRequest, page: Int) async throws -> PageResult<Movie> {
+        let result = try await gateway.fetch(request: request, page: page)
+        return result
     }
 }
 

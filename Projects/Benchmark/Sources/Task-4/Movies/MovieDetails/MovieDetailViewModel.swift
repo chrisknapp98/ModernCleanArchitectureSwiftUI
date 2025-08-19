@@ -54,6 +54,21 @@ public final class MovieDetailViewModel {
     }
 
     func fetchDetails() async {
+        props.isLoading = true
+        do {
+            async let details = movieDetailsUseCase.fetchDetails(for: movie.id)
+            async let cast = movieCreditsUseCase.fetchCast(for: movie.id)
+            async let recommended = movieRecomendationUseCase.fetchRecommended(for: movie.id)
+            async let similar = movieRecomendationUseCase.fetchSimilar(for: movie.id)
+            props.details = try await details
+            props.cast = try await cast
+            props.recommended = try await recommended
+            props.similar = try await similar
+        } catch {
+            errorToast.show()
+        }
+        props.isLoading = false
+
     }
     
     func didTap(movie: Movie) {

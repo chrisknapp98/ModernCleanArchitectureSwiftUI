@@ -14,5 +14,10 @@ public final class SearchMoviesGateway: MovieSearchUseCase {
     }
 
     public func search(query: String, page: Int) async throws -> PageResult<Movie> {
+        let resource = Resource(path: "/search/movie", query: ["query": query, "page": "\(page)"])
+        let data = try await client.fetch(resource: resource)
+        let page = try decoder.decode(PageResult<Movie>.self, from: data)
+        
+        return page
     }
 }

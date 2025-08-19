@@ -14,6 +14,18 @@ public final class DiscoverMoviesGateway: MoviesDomain.DiscoverMoviesGateway {
     }
 
     public func fetch(request: DiscoverMoviesRequest) async throws -> PageResult<Movie> {
+        do {
+            let data = try await client.fetch(resource: request.makeResource())
+            let page = try decoder.decode(PageResult<Movie>.self, from: data)
+            return page
+        } catch let error as NetworkError {
+            if case .notConnectedToInternet = error {
+                throw OfflineError()
+            }
+            throw error
+        } catch {
+            throw error
+        }
     }
 }
 

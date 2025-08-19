@@ -88,6 +88,17 @@ public final class MovieDetailViewModel {
     }
   
     func addToWatchlist() {
+        do {
+            if movieWatchlistUseCase.contains(movie: movie) {
+                try movieWatchlistUseCase.remove(movie: movie)
+                props.isInWatchlist = false
+            } else {
+                try movieWatchlistUseCase.add(movie: movie)
+                props.isInWatchlist = true
+            }
+        } catch {
+            errorToast.show()
+        }
     }
   
     func addToSeenList() {

@@ -35,6 +35,9 @@ import UI
     }
     
     func filter(request: DiscoverMoviesRequest) {
+        self.request = request
+        Task { await fetch() }
+
     }
     
     func didSelect(movie: Movie) {

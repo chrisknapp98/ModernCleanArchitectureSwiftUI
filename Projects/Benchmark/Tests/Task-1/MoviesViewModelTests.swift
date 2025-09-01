@@ -47,14 +47,12 @@ final class MoviesViewModelTests: XCTestCase {
         XCTAssertEqual(sut.movies.count, 2)
         XCTAssertEqual(sut.movies.map(\.title), ["Test Movie 1", "Test Movie 2"])
         XCTAssertEqual(discoverMoviesUseCase.callCount, 1)
+        XCTAssertEqual(errorToastCoordinator.callCount, 0)
     }
     
     func test_givenError_whenFetchingMoviesToDiscover_thenShowErrorToast() async {
         // given
         let expectedError = NSError(domain: "TestError", code: 1, userInfo: nil)
-        
-        discoverMoviesUseCase.results = []
-        discoverMoviesUseCase.totalResults = 0
         discoverMoviesUseCase.error = expectedError
         let sut = sut
         

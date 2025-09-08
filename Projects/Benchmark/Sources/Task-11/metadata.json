@@ -1,0 +1,12 @@
+{
+    "task_id": 11,
+    "entrypoint": {
+        "filename": "Projects/Benchmark/Sources/Task-11/HTTPClient/HTTPClient.swift",
+        "cursor": {
+            "line": 21,
+            "character": 64
+        }
+    },
+    "files": [
+    ]
+}

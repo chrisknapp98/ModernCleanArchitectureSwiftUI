@@ -1,0 +1,12 @@
+{
+    "task_id": 5,
+    "entrypoint": {
+        "filename": "Projects/Benchmark/Sources/Task-5/Movies/MovieDetails/MovieDetailViewModel.swift",
+        "cursor": {
+            "line": 81,
+            "character": 31
+        }
+    },
+    "files": [
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "task_id": 12,
+    "entrypoint": {
+        "filename": "Projects/Benchmark/Sources/Task-12/MoviesAPI/Geteways/DiscoverMoviesGateway.swift",
+        "cursor": {
+            "line": 15,
+            "character": 89
+        }
+    },
+    "files": [
+    ]
+}

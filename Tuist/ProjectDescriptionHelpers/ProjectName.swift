@@ -7,16 +7,17 @@ public enum ProjectName: String, CaseIterable {
     case Features
     case Platform
     case UI
+    case Benchmark
 }
 
-public extension ProjectName {
-    var projectPath: Path {
+extension ProjectName {
+    public var projectPath: Path {
         "Projects/\(rawValue)"
     }
 }
 
-public extension ProjectName {
-    var project: Project {
+extension ProjectName {
+    public var project: Project {
         switch self {
         case .Core:
             Project(
@@ -47,6 +48,17 @@ public extension ProjectName {
             Project(
                 name: rawValue,
                 targets: UIModuleName.allCases.map(\.target)
+            )
+        case .Benchmark:
+            Project(
+                name: rawValue,
+                targets: BenchmarkModuleName.allCases.flatMap { [$0.target, $0.testTarget] } + [
+                    BenchmarkModuleName.parentTarget,
+                    BenchmarkModuleName.parentTestTarget,
+                ],
+                schemes: [
+                    BenchmarkModuleName.scheme
+                ]
             )
         }
     }

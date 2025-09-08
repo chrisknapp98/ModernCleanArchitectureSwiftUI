@@ -1,4 +1,28 @@
 # Modern Clean Architecture
+## Note on this Fork
+
+This repository is a fork of [sergdort/ModernCleanArchitecture](https://github.com/sergdort/ModernCleanArchitecture).  
+It has been extended as part of my Master’s Thesis at HTW Berlin:  
+*“Enhancing a Generative AI Tool for Improved Code Generation and Automated Application in an IDE”*.
+
+### Additions in this Fork
+
+- Benchmark Module: Located in `Projects/Benchmark/Sources` and `Projects/Benchmark/Tests`.  
+  - Contains 15 tasks for evaluating AI-assisted code generation.  
+  - Used to test multi-file inline completions and benchmarking approaches.  
+- Everything else (project setup, Tuist configuration, app example) remains unchanged from the original.
+
+The purpose of these additions is to provide a reproducible benchmarking environment and evaluation setup.  
+This fork is **not intended to be merged upstream** but to support the research conducted in the thesis.
+
+### Related Repository
+
+This project is used in combination with another fork created for the thesis:  
+- [CopilotForXcode](https://github.com/chrisknapp98/CopilotForXcode) – an extended GitHub Copilot Xcode integration supporting multi-file inline completions. 
+It offers a benchmark tool to test code completion for several large language models, including GitHub Copilot and different GPT models from OpenAI.
+The benchmark tasks are inspired by existing datasets such as [HumanEval](https://arxiv.org/abs/2107.03374), but adapted to reflect realistic multi-file development scenarios.
+
+---
 
 ## Motivation
 

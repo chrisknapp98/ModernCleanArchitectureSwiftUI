@@ -1,7 +1,7 @@
 # Modern Clean Architecture
 ## Note on this Fork
 
-This repository is a fork of [sergdort/ModernCleanArchitecture](https://github.com/sergdort/ModernCleanArchitecture).  
+This repository is a fork of [sergdort/ModernCleanArchitectureSwiftUI](https://github.com/sergdort/ModernCleanArchitectureSwiftUI).  
 It has been extended as part of my Master’s Thesis at HTW Berlin:  
 *“Enhancing a Generative AI Tool for Improved Code Generation and Automated Application in an IDE”*.
 

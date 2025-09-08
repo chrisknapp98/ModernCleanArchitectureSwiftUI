@@ -8,9 +8,5 @@
         }
     },
     "files": [
-        "Projects/Benchmark/Sources/Task-2/MoviesDomain/Gateway/DiscoverMoviesGateway.swift",
-        "Projects/Benchmark/Sources/Task-2/MoviesDomain/Gateway/DicoverMoviesRepository.swift",
-        "Projects/Benchmark/Sources/Task-2/MoviesDomain/Entities/PageResult.swift",
-        "Projects/Benchmark/Sources/Task-2/MoviesDomain/Entities/Movie.swift"
     ]
 }

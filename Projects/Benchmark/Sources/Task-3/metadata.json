@@ -8,9 +8,5 @@
         }
     },
     "files": [
-        "Projects/Benchmark/Sources/Task-1/MoviesDomain/UseCases/DiscoverMoviesUseCase.swift",
-        "Projects/Benchmark/Sources/Task-1/MoviesDomain/Gateway/DiscoverMoviesGateway.swift",
-        "Projects/Benchmark/Sources/Task-1/MoviesDomain/Entities/PageResult.swift",
-        "Projects/Benchmark/Sources/Task-1/MoviesDomain/Entities/Movie.swift"
     ]
 }

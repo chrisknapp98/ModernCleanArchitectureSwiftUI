@@ -80,6 +80,8 @@ public final class MovieDetailViewModel {
     }
     
     func didTap(movie: Movie) {
+        coordinator.showDetail(for: movie)
+    
     }
     
     func didTap(person: Person) {

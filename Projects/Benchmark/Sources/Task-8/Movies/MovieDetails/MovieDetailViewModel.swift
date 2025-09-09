@@ -102,6 +102,12 @@ public final class MovieDetailViewModel {
     }
   
     func addToSeenList() {
+        do {
+            try movieSeenlistUseCase.add(movie: movie)
+            props.isInSeenlist = true
+        } catch {
+            errorToast.show()
+        }
     }
   
     func didTapList() {

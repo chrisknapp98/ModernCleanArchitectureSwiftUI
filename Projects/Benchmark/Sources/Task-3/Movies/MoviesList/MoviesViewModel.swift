@@ -35,6 +35,22 @@ import UI
     }
     
     func filter(request: DiscoverMoviesRequest) {
+        // Implement filtering logic here
+        // For example, you might want to filter the movies array based on the request type
+        switch request {
+        case .nowPlaying:
+            // Filter logic for now playing movies
+            break
+        case .popular:
+            // Filter logic for popular movies
+            break
+        case .topRated:
+            // Filter logic for top rated movies
+            break
+        case .upcoming:
+            // Filter logic for upcoming movies
+            break
+        }
     }
     
     func didSelect(movie: Movie) {

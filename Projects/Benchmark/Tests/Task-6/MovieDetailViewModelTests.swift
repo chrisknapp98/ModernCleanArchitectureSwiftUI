@@ -29,7 +29,7 @@ class MovieDetailViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_givenMovie_whenTapOnMovie_thenCallCoordinatorOnce() {
+    func test_givenPerson_whenTapOnPerson_thenCallCoordinatorOnce() {
         // given
         let person = mockPerson(name: "New Person")
         let sut = sut

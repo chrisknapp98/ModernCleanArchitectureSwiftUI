@@ -54,6 +54,29 @@ public final class MovieDetailViewModel {
     }
 
     func fetchDetails() async {
+        if !shouldLoad {
+            props.isInWatchlist = movieWatchlistUseCase.contains(movie: movie)
+            props.isInSeenlist = movieSeenlistUseCase.contains(movie: movie)
+            return
+        }
+        props.isLoading = true
+        do {
+            async let detailsTask = movieDetailsUseCase.fetchDetail(for: movie.id)
+            async let castTask = movieCreditsUseCase.fetchCast(movieID: movie.id)
+            async let recommendedTask = movieRecomendationUseCase.fetchRecomended(movieID: movie.id)
+            async let similarTask = movieRecomendationUseCase.fetchSimilar(movieID: movie.id)
+            let (details, cast, recommended, similar) = try await (detailsTask, castTask, recommendedTask, similarTask)
+            props.details = details
+            props.cast = cast
+            props.recommended = recommended
+            props.similar = similar
+            props.isInWatchlist = movieWatchlistUseCase.contains(movie: movie)
+            props.isInSeenlist = movieSeenlistUseCase.contains(movie: movie)
+            props.isLoading = false
+        } catch {
+            props.isLoading = false
+            errorToast.show()
+        }
     }
     
     func didTap(movie: Movie) {

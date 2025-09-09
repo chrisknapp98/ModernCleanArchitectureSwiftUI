@@ -14,6 +14,9 @@ public final class DiscoverMoviesGateway: MoviesDomain.DiscoverMoviesGateway {
     }
 
     public func fetch(request: DiscoverMoviesRequest) async throws -> PageResult<Movie> {
+        let resource = request.makeResource()
+        let data = try await client.fetch(resource: resource)
+        return try decoder.decode(PageResult<Movie>.self, from: data)
     }
 }
 

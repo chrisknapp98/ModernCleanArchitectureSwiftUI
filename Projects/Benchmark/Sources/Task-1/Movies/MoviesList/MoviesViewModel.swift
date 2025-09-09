@@ -26,6 +26,12 @@ import UI
     }
     
     func fetch() async {
+        do {
+            let result = try await useCase.fetch(request: request, page: 1)
+            self.movies = result.results
+        } catch {
+            errorToast.show()
+        }
     }
     
     func filter(request: DiscoverMoviesRequest) {

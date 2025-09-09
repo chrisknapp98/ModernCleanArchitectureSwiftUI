@@ -11,5 +11,9 @@ public final class MovieCreditsGateway: MovieCreditsUseCase {
     }
     
     public func fetchCast(movieID: MovieID) async throws -> MovieCast {
+        let resource = Resource(path: "movie/\(movieID)/credits")
+        let data = try await client.fetch(resource: resource)
+        let response = try decoder.decode(MovieCreditsResponse.self, from: data)
+        return response.toDomain()
     }
 }

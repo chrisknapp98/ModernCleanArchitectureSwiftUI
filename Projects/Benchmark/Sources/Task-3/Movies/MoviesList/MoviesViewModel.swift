@@ -35,6 +35,14 @@ import UI
     }
     
     func filter(request: DiscoverMoviesRequest) {
+        Task {
+            do {
+                let page = try await useCase.fetch(request: request, page: 1)
+                movies = page.results
+            } catch {
+                errorToast.show()
+            }
+        }
     }
     
     func didSelect(movie: Movie) {

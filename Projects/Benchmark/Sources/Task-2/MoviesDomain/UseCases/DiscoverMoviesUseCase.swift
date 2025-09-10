@@ -16,6 +16,15 @@ public final class DiscoverMoviesUseCase: DiscoverMoviesUseCaseProtocol {
     }
     
     public func fetch(request: DiscoverMoviesRequest, page: Int) async throws -> PageResult<Movie> {
+        let cachedResult = try await repository.fetch(request: request, page: page)
+        
+        if cachedResult.isEmpty {
+            let result = try await gateway.fetch(request: request, page: page)
+            try await repository.save(request: request, page: page, result: result)
+            return result
+        } else {
+            return cachedResult
+        }
     }
 }
 

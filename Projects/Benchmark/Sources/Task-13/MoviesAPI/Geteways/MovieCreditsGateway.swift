@@ -11,5 +11,7 @@ public final class MovieCreditsGateway: MovieCreditsUseCase {
     }
     
     public func fetchCast(movieID: MovieID) async throws -> MovieCast {
+        let request = try HTTPRequest(
+            method: .get,
     }
 }

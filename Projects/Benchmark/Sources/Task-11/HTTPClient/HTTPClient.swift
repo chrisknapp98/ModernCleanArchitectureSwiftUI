@@ -20,6 +20,27 @@ public final class HTTPClient: DataFetching {
     }
     
     public func fetch(resource: Resource) async throws -> Data {
+        let request = self.request(for: resource)
+        
+        do {
+            let (data, response) = try await session.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw NetworkError.invalidResponse
+            }
+            
+            if httpResponse.statusCode == 200 {
+                return data
+            } else if httpResponse.statusCode == 404 {
+                throw NetworkError.notConnectedToInternet
+            } else {
+                throw NetworkError.invalidResponse
+            }
+        } catch let error as URLError where error.code == .cancelled {
+            throw NetworkError.cancelled
+        } catch {
+            throw NetworkError.networkError(error)
+        }
     }
     
     private func request(for resource: Resource) -> URLRequest {

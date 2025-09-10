@@ -15,5 +15,6 @@ public final class MovieDetailsGateway: MovieDetailUseCaseProtocol {
     }
 
     public func fetchDetail(for movieID: MovieID) async throws -> MovieDetail {
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID.raw
     }
 }

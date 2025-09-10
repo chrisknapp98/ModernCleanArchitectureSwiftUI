@@ -14,5 +14,6 @@ public final class SearchMoviesGateway: MovieSearchUseCase {
     }
 
     public func search(query: String, page: Int) async throws -> PageResult<Movie> {
+        let resource = Resource(
     }
 }
